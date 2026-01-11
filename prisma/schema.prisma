@@ -1,0 +1,106 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum ClipOrientation {
+  horizontal
+  vertical
+}
+
+enum JobType {
+  INGEST_TRANSCRIPT
+  DETECT_MOMENTS
+  RENDER_CLIPS
+}
+
+enum JobStatus {
+  QUEUED
+  RUNNING
+  SUCCEEDED
+  FAILED
+}
+
+model Video {
+  id                String       @id @default(uuid())
+  source_path       String
+  original_filename String?
+  created_at        DateTime     @default(now())
+  moments           Moment[]
+  clip_assets       ClipAsset[]
+  transcript_segments TranscriptSegment[]
+  jobs              Job[]
+
+  @@map("videos")
+}
+
+model Moment {
+  id         String      @id @default(uuid())
+  video_id   String
+  rank       Int
+  start_ms   Int
+  end_ms     Int
+  title      String
+  created_at DateTime    @default(now())
+  video      Video       @relation(fields: [video_id], references: [id])
+  clip_assets ClipAsset[]
+
+  @@index([video_id])
+  @@unique([video_id, rank])
+  @@map("moments")
+}
+
+model ClipAsset {
+  id          String          @id @default(uuid())
+  video_id    String
+  moment_id   String
+  orientation ClipOrientation
+  file_path   String
+  start_ms    Int
+  end_ms      Int
+  created_at  DateTime        @default(now())
+  video       Video           @relation(fields: [video_id], references: [id])
+  moment      Moment          @relation(fields: [moment_id], references: [id])
+
+  @@index([video_id])
+  @@index([moment_id])
+  @@unique([moment_id, orientation])
+  @@map("clip_assets")
+}
+
+model TranscriptSegment {
+  id         String   @id @default(uuid())
+  video_id   String
+  start_ms   Int
+  end_ms     Int
+  text       String
+  created_at DateTime @default(now())
+  video      Video    @relation(fields: [video_id], references: [id])
+
+  @@index([video_id, start_ms])
+  @@map("transcript_segments")
+}
+
+model Job {
+  id           String    @id @default(uuid())
+  video_id     String
+  type         JobType
+  status       JobStatus @default(QUEUED)
+  attempts     Int       @default(0)
+  max_attempts Int       @default(3)
+  run_after    DateTime  @default(now())
+  locked_at    DateTime?
+  last_error   String?   @db.Text
+  payload      Json?
+  created_at   DateTime  @default(now())
+  updated_at   DateTime  @updatedAt
+  video        Video     @relation(fields: [video_id], references: [id])
+
+  @@index([status, run_after])
+  @@index([video_id, type, status])
+  @@map("jobs")
+}

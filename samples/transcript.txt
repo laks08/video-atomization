@@ -1,0 +1,650 @@
+[00:00:00] - Craig, Joz, thank you so much
+[00:00:01] for sitting down with me at your big developers conference.
+[00:00:04] - Thanks for having us.
+[00:00:05] - Yeah, it was a big day yesterday.
+[00:00:06] - Huge. Huge, - Huge day.
+[00:00:08] - Huge. - So, I do wanna get to
+[00:00:09] what you announced yesterday,
+[00:00:10] and some of the big announcements.
+[00:00:12] I wanna talk a little bit about last year's WWWEC.
+[00:00:14] - Yeah. - Start there.
+[00:00:15] Last year you announced a smarter AI-driven Siri.
+[00:00:20] Where is she?
+[00:00:20] - Yeah, well, you know, back then with Apple Intelligence,
+[00:00:23] I think we spent about 40 minutes on Apple Intelligence
+[00:00:26] in 100-minute show,
+[00:00:29] Siri was building on Apple Intelligence.
+[00:00:32] We had about, spent about eight minutes of on Siri there.
+[00:00:36] Four minutes of those we were able to ship this year.
+[00:00:39] In four minutes, we didn't.
+[00:00:40] So we were able to deliver a great new Siri UI`.
+[00:00:45] New features like typing to Siri.
+[00:00:47] Siri understands, does fluency better.
+[00:00:49] Siri understands conversational context better.
+[00:00:52] Siri understands product knowledge better.
+[00:00:54] But there were a couple of really significant features
+[00:00:57] that we weren't able to get to.
+[00:00:59] And we had laid the foundation with Apple Intelligence,
+[00:01:04] with a semantic index with on-device,
+[00:01:08] really powerful on device large language models
+[00:01:11] that power a bunch of other features in Apple Intelligence
+[00:01:13] with breakthrough private cloud compute
+[00:01:16] of intelligence there.
+[00:01:17] And all of those, and a semantic index that we use in lots
+[00:01:20] of features like searching your photos
+[00:01:22] with natural language, which of course we delivered,
+[00:01:25] which all are foundational to new capabilities
+[00:01:28] we wanna add to Siri.
+[00:01:30] We had a really two-phase plan,
+[00:01:33] a two versions of an architecture
+[00:01:35] to deliver a great Siri.
+[00:01:37] And as we got into the conference,
+[00:01:39] we had V1 working to do basic capabilities
+[00:01:45] that we showed off at the conference.
+[00:01:48] So we had some real software.
+[00:01:49] We were able to demonstrate there and show what was coming,
+[00:01:53] but it didn't converge in the way
+[00:01:55] quality-wise that we needed it to.
+[00:01:57] We had something working
+[00:01:58] but then as you got off the beaten path,
+[00:02:00] and we know with Siri it's open-ended
+[00:02:02] what you might ask it to do,
+[00:02:04] and the data that might be on your device
+[00:02:05] that would be used in personal knowledge.
+[00:02:07] And we wanted to be really, really reliable
+[00:02:10] and we weren't able to achieve the reliability in the time
+[00:02:12] we thought initially we could get it done
+[00:02:15] by the end of the year and then by the spring.
+[00:02:17] And when we realized in the spring
+[00:02:19] that it just wasn't gonna hit the Apple quality level,
+[00:02:22] we had to make the announcement that we were gonna move on
+[00:02:26] to V2 of our architecture that really had the legs
+[00:02:28] to get us to the quality that we want for our customers.
+[00:02:33] And that we'd be announcing when it was ready,
+[00:02:35] we'd be announcing it.
+[00:02:36] And so that's where we are today.
+[00:02:37] - But there was a working version of this.
+[00:02:40] - Oh, yeah. Yeah. - This wasn't just vaporware.
+[00:02:42] - Oh, no, no, no, no, of course.
+[00:02:43] No, we were filming real working software
+[00:02:45] with a real large language model with real semantic search.
+[00:02:48] That's what you saw.
+[00:02:49] - Yeah, there's this narrative out there that, yeah,
+[00:02:51] it was demoware only.
+[00:02:53] No, it was, again, something we thought as Craig said,
+[00:02:58] we'd actually ship by later in the year.
+[00:03:00] And look, we don't wanna disappoint customers.
+[00:03:01] We never do.
+[00:03:02] But it would've been more disappointed to ship something
+[00:03:05] that didn't hit our quality standard that had, you know,
+[00:03:07] an error rate that we felt was unacceptable.
+[00:03:09] So we made what we thought was the best decision.
+[00:03:11] I'd make it again, so.
+[00:03:13] - So two parts of this that I wanna unpack.
+[00:03:15] I mean, one is that you marketed it though.
+[00:03:17] You showed this.
+[00:03:19] - Yeah. - How did that happen?
+[00:03:20] - Well, again, as Craig said,
+[00:03:22] we thought we were gonna deliver it by the end of the year.
+[00:03:24] That was our plan.
+[00:03:25] So in October, we had one round of that Bella Ramsey ad
+[00:03:29] that showed one of the things
+[00:03:31] that we could do with Apple Intelligence.
+[00:03:32] We had a whole series of things, and this was one of 'em.
+[00:03:35] We expected it.
+[00:03:36] And there you go.
+[00:03:38] - Yeah, I think most of our marketing really,
+[00:03:40] and I mean, I'm not the expert here,
+[00:03:41] but was about Apple Intelligence.
+[00:03:44] And we had, I don't know, 20 different capabilities
+[00:03:46] of Apple Intelligence.
+[00:03:47] And our, as I say, like
+[00:03:48] even in what we were saying in the event,
+[00:03:51] you'd swear in retrospect, if I'm to read what people write,
+[00:03:53] that our entire event last year was about Siri.
+[00:03:56] As I said, 4% of the minutes
+[00:03:58] in our event last year were about the parts of Siri
+[00:04:01] that we didn't deliver.
+[00:04:03] The 96 other percent of that event was about other things.
+[00:04:06] And most of Apple Intelligence was about all sorts
+[00:04:09] of powerful capabilities that we shipped.
+[00:04:10] And so, yeah, we've been marketing Apple Intelligence a lot
+[00:04:13] because we think both it's great now,
+[00:04:16] and it's a huge foundation for the future.
+[00:04:18] If every time you hear us market Apple Intelligence,
+[00:04:20] you hear in your mind chatbot,
+[00:04:23] which of course, we were 100% not thinking,
+[00:04:25] and saying that was what we thought Apple Intelligence was
+[00:04:28] or what the future of our platform was.
+[00:04:30] Well, then you're gonna think this,
+[00:04:31] but that in fact isn't what we were doing.
+[00:04:33] There was a Bella Ramsey ad
+[00:04:35] that was specifically about Siri,
+[00:04:36] but you know, by and large,
+[00:04:38] we've been marketing Apple Intelligence.
+[00:04:39] - Yeah. And there's over 20 features that we did deliver.
+[00:04:42] So we delivered almost everything that we promised.
+[00:04:44] That was something we didn't, again,
+[00:04:46] and Craig explained why.
+[00:04:47] - It's great that you set this high bar,
+[00:04:49] but you're also Apple.
+[00:04:50] I mean, you've got more engineers,
+[00:04:52] more cash than most companies, maybe any company.
+[00:04:56] Why couldn't you make it work?
+[00:04:59] - I mean, this is new technology.
+[00:05:01] I think when it comes to
+[00:05:04] automating capabilities on devices in a reliable way.
+[00:05:08] No one's doing it really well right now.
+[00:05:11] And we wanted to be the first, we wanted to do it best.
+[00:05:15] And like I say,
+[00:05:16] we had very promising early results
+[00:05:18] in working initial versions,
+[00:05:20] but not to the level that as we began
+[00:05:22] living on it internally,
+[00:05:24] and feeling like, this just doesn't work
+[00:05:26] reliably enough to be an Apple product.
+[00:05:29] So this stuff takes hard work,
+[00:05:31] but we do see AI as a long-term transformational wave,
+[00:05:36] as one that's going to affect our industry,
+[00:05:39] and of course, our society for decades to come.
+[00:05:43] We wanna get it right.
+[00:05:44] There's no need to rush out with the wrong features,
+[00:05:47] and the wrong product just to be first.
+[00:05:50] We ultimately want to build the right products
+[00:05:52] for our customers.
+[00:05:53] - So many people associate Apple and AI with Siri.
+[00:05:57] - Mm-hm. - Since +10 years ago now.
+[00:06:00] - Sure. - And so,
+[00:06:02] there is a real expectation that Siri should be as good,
+[00:06:05] if not better than the competition.
+[00:06:08] - Oh, and I think ultimately it should be.
+[00:06:10] - But it's not right now.
+[00:06:11] - That's certainly our mission. Yeah.
+[00:06:12] But that's our mission.
+[00:06:14] You know, we set out to tell people
+[00:06:17] last year where we were going,
+[00:06:19] I think people were very excited about
+[00:06:21] Apple's values there experience
+[00:06:23] that's integrated into everything you do,
+[00:06:26] not a Bolton Chatbot on the side,
+[00:06:29] something that is personal, something that is private.
+[00:06:32] We started building some of those
+[00:06:33] and delivering some of those capabilities.
+[00:06:35] And we do wonderful semantic photo search right now.
+[00:06:39] You know, we do all kinds of tools
+[00:06:41] that are directly integrated into how you use your device.
+[00:06:44] I think people are excited for that future.
+[00:06:46] And in a way, appreciate the fact that
+[00:06:50] people really wanted the next version of SIRRI.
+[00:06:53] And we really want to deliver it for them,
+[00:06:56] but we wanna do it the right way.
+[00:06:57] - When's the right way gonna come along?
+[00:06:59] - Well, in this case, we really wanna make sure
+[00:07:01] that we have it very much in hand
+[00:07:03] before we start talking about dates for obvious reasons.
+[00:07:05] - And will that include these features
+[00:07:07] that you had previously announced and more,
+[00:07:10] I mean, is this the effort to make Siri this more
+[00:07:13] interactive AI companion? - Sure.
+[00:07:16] Well, I mean, look, on the one hand,
+[00:07:18] I would love to to dish about my enthusiasm
+[00:07:21] for our future plans,
+[00:07:22] but that's exactly
+[00:07:23] what we don't want to do right now, right?
+[00:07:25] - Makes sense.
+[00:07:26] - To you know, misset expectations.
+[00:07:28] We wanna deliver something great that you
+[00:07:30] and all of our customers really appreciate.
+[00:07:32] - You have mentioned Apple Intelligence a lot.
+[00:07:34] And you know, to be honest,
+[00:07:35] I'm not really a big user of Apple Intelligence.
+[00:07:38] I'm using a lot of your competitors' products.
+[00:07:40] Can you or will you keep up with that competition?
+[00:07:43] - Well, again, it is important
+[00:07:46] to realize our strategy is a little bit different
+[00:07:48] than some other people's, right?
+[00:07:49] Our idea of Apple Intelligence is using generative AI
+[00:07:54] to be an enabling technology
+[00:07:56] for features across our operating system.
+[00:07:58] So much so that sometimes you're doing things you don't even
+[00:08:00] realize you're using Apple Intelligence
+[00:08:02] or you know, AI to do them.
+[00:08:04] And that's our goal. Integrate it.
+[00:08:07] Make your products that you use every day,
+[00:08:09] make the features you use every day better.
+[00:08:11] Not even have to think about, there's no destination,
+[00:08:13] there's no app called Apple Intelligence,
+[00:08:15] which is different than a good chatbot.
+[00:08:16] Which again, what I think some people have kind
+[00:08:19] of conflated a bit, like, where's your chatbot?
+[00:08:21] We didn't do that.
+[00:08:22] What we decided was that we would give you access
+[00:08:24] to one through ChatGPT,
+[00:08:26] because, you know, we think that was the best one.
+[00:08:28] But our idea is to integrate across the operating system,
+[00:08:31] make it features that, you know,
+[00:08:33] I certainly use every day.
+[00:08:34] - And I think, I mean, AI is one
+[00:08:36] of those massive technol technological waves
+[00:08:39] like the internet, like mobility.
+[00:08:41] When you look at the internet,
+[00:08:44] I don't think anyone was saying,
+[00:08:45] "Gosh, Apple, I find myself using amazon.com.
+[00:08:49] And I'm not using, you know, I use that a lot.
+[00:08:52] Why don't you have one of those?
+[00:08:54] I find this web search thing really useful.
+[00:08:57] I'm enjoying, you know, streaming cat videos.
+[00:09:01] I find this useful. Why is this not in your product?
+[00:09:04] Well, of course the internet was vast.
+[00:09:06] It was opportunity for many, many companies
+[00:09:09] for users to do a wide diversity of things.
+[00:09:11] It was also huge enabler for Apple.
+[00:09:14] And I think Apple made the internet accessible
+[00:09:17] in a lot of ways, more than more than anyone.
+[00:09:20] And it was super empowering
+[00:09:21] for our customers and for our products.
+[00:09:23] But that didn't mean that every experience
+[00:09:25] that you might take on necessarily is gonna happen inside
+[00:09:28] of Apple or ultimately happen with the Siri.
+[00:09:30] They're gonna be places where hopefully Siri is a huge,
+[00:09:34] and maybe ultimately indispensable part
+[00:09:36] of your daily routine.
+[00:09:36] But that doesn't mean it's a problem if you are using
+[00:09:40] something else for other tasks you wanna do.
+[00:09:43] - I do wanna get into iOS 26,
+[00:09:45] - Yeah, yeah. - And some of the new
+[00:09:46] operating systems.
+[00:09:47] But staying on AI for a second, you do have some more
+[00:09:51] of OpenAI and ChatGPT threaded through,
+[00:09:54] it's specifically in visual intelligence.
+[00:09:56] When are you guys thinking about using your models
+[00:09:59] versus another company's models like OpenAI's?
+[00:10:02] - Well, we do already.
+[00:10:03] So today, when you use writing tools,
+[00:10:06] and say you wanna make something more concise,
+[00:10:08] put it in a bulleted list, create a table,
+[00:10:10] or even give an ad hoc command on
+[00:10:11] how you wanna modify something into being, you know,
+[00:10:14] haiku or something like that.
+[00:10:16] That's all using Apple's models in private cloud compute.
+[00:10:19] And so we're using our models for more and more.
+[00:10:23] We use them for some
+[00:10:24] of our visual intelligence experiences as well.
+[00:10:27] But ChatGPT offers some really great capabilities.
+[00:10:29] And so we have integrated more
+[00:10:31] and done some really powerful things with them.
+[00:10:33] As you point out, they're available in visual intelligence,
+[00:10:36] which is now available not just
+[00:10:38] for things around you with your camera,
+[00:10:39] but also things on your screen.
+[00:10:41] But we also integrate lots of other tools into that flow.
+[00:10:44] We also make ChatGPT's image generation capability available
+[00:10:49] both inside of Image Playground,
+[00:10:52] but also since you can pull up
+[00:10:54] that image generation capability
+[00:10:55] inside of all sorts of apps,
+[00:10:57] Apple apps and third party apps,
+[00:10:59] you also now have access
+[00:11:00] to ChatGPT's image generation right there in the flow
+[00:11:04] of using those apps.
+[00:11:06] So, and we announced some really exciting coding tools
+[00:11:09] actually in Xcode that got, you know,
+[00:11:10] huge reaction from our developers yesterday
+[00:11:13] where you can use ChatGPT as well
+[00:11:15] as other models like from Anthropic to do coding in Xcode,
+[00:11:18] which is fantastic.
+[00:11:20] So we will keep building up the capability
+[00:11:23] of our own models, but we see lots
+[00:11:25] of people doing other exciting things with theirs,
+[00:11:27] and we wanna make sure our customers can
+[00:11:28] access the best of everything.
+[00:11:30] - You know, looking ahead,
+[00:11:31] does Apple want to be the company making
+[00:11:34] some of these models?
+[00:11:35] Would you like to have
+[00:11:37] some of the capabilities that OpenAI has in their models
+[00:11:40] or philanthropic central to Apple living in Apple's models?
+[00:11:44] - Oh, I mean, we already are, in fact,
+[00:11:47] we published a paper again this year describing our latest
+[00:11:51] releases of both on-device models
+[00:11:53] and our private cloud compute model.
+[00:11:55] Both have undergone significant
+[00:11:57] architectural and enhancements.
+[00:11:59] Our PCC private cloud compute model is much larger
+[00:12:04] and more powerful and is GPT-4 o class in many regards.
+[00:12:08] So this is something absolutely
+[00:12:10] that's what we've been doing.
+[00:12:12] - Okay. - But our goal again,
+[00:12:13] is not to create another Chatbot, right?
+[00:12:15] It's to integrate these capabilities
+[00:12:17] across our operating system and our features.
+[00:12:18] - But that powerful intelligence
+[00:12:19] behind those capabilities.
+[00:12:21] - Exactly. Yeah. - Let's talk about
+[00:12:22] Liquid Glass.
+[00:12:23] - Oh, yay. - You guys really like glass?
+[00:12:26] - We do. - It's a nice material.
+[00:12:27] Why do you love glass so much?
+[00:12:29] - Well, I think the glass, you know,
+[00:12:32] we could have gone with, you know, ancient brick
+[00:12:35] or teak wood or something as a material.
+[00:12:37] - Yeah. - But it turns out glass
+[00:12:38] has some really useful properties
+[00:12:40] when it comes to user interfaces
+[00:12:42] and especially the kind of adaptive glass we were able
+[00:12:45] to build into the product.
+[00:12:46] You know, what we really wanted is,
+[00:12:48] as our displays have gotten both larger,
+[00:12:51] but also with these rounded edges,
+[00:12:54] we wanted to make your content feel open,
+[00:12:57] like it owned the entire screen edge to edge glass allows us
+[00:13:01] to put controls inset, concentric to that experience
+[00:13:06] that on the one hand feel almost like they're not there.
+[00:13:08] Like your content just owns the screen, which is wonderful,
+[00:13:11] but at the same time, define space in a way that,
+[00:13:14] "Oh, I know what the buttons are.
+[00:13:15] The controls are extremely clear."
+[00:13:17] Glass also is wonderfully adaptive.
+[00:13:20] It both can transmit through translucency, the background,
+[00:13:25] but we can adapt its properties so that you get contrast
+[00:13:29] to be able to see the content of both what's behind it,
+[00:13:32] and what you're trying to read.
+[00:13:33] And so Glass is just, has these wonderful properties
+[00:13:36] for being part of the UI and it just looks super cool.
+[00:13:39] - Why do it now?
+[00:13:40] - Well, we've gotten to the point where the hardware
+[00:13:43] has evolved both the processing power
+[00:13:46] to enable us to do this glass,
+[00:13:48] like doing refraction of content
+[00:13:50] that's far away from the glass,
+[00:13:52] along the edges of the glass,
+[00:13:53] transmitting content through the glass.
+[00:13:56] This is all computationally intensive,
+[00:13:57] but we have now the power with apple silicon
+[00:14:00] to do this across the breadth of our product line.
+[00:14:02] So that's step one.
+[00:14:04] But we also have these amazing displays.
+[00:14:07] Some of them high definition are HDR displays that allow us
+[00:14:12] to show spectral highlights on glass.
+[00:14:15] And then the screens have gotten larger.
+[00:14:17] The ID has changed to the point where
+[00:14:20] that centricity was a real driver.
+[00:14:23] All the factors came together to enable us
+[00:14:25] to take a big step forward.
+[00:14:27] And then we also saw the opportunity
+[00:14:28] to bring something consistent
+[00:14:30] across our entire product line, something universal.
+[00:14:33] And it's taken years from,
+[00:14:35] if you look at the starting point of iOS and macOS,
+[00:14:39] and how, you know, far apart
+[00:14:41] their origin was as an interface,
+[00:14:44] and how over many years we brought them together,
+[00:14:47] uniform-type faces,
+[00:14:48] starting to bring together the design language
+[00:14:50] to where we really could have a single design
+[00:14:54] that spanned across our whole product line.
+[00:14:56] That was now in reach.
+[00:14:57] And this year we were able to deliver on it.
+[00:14:59] - And it's probably worth saying too
+[00:15:00] inspired by the years of work
+[00:15:02] that the team put in Vision OS, right?
+[00:15:04] And what we learned from that, how much we liked that,
+[00:15:06] how much users loved that, you know?
+[00:15:07] So certainly there was inspiration
+[00:15:09] at a design level for that.
+[00:15:11] - You mentioned bigger screens
+[00:15:13] or making this screen feel bigger.
+[00:15:15] Is this a sort of a precursor to a bigger screen iPhone?
+[00:15:19] (interviewees laughing)
+[00:15:20] What about a foldable iPhone?
+[00:15:21] I feel like this would look very nice on a foldable iPhone.
+[00:15:24] - It's so large right now. Geez, it's so nice.
+[00:15:26] - Well, yeah, that's why you fold it.
+[00:15:27] - It's nice. It is nice. - That's why you'd fold it.
+[00:15:30] - It would break it, wouldn't it? I don't know.
+[00:15:32] - No, no. You would make a foldable iPhone.
+[00:15:34] It's not something you're thinking about?
+[00:15:36] - No.
+[00:15:37] - Who's is this? - I did wanna talk about
+[00:15:38] a little bit about the iPad OS.
+[00:15:40] - Yeah. - And that seems like
+[00:15:42] a real move to trying to make the iPad more of a computer.
+[00:15:45] But as you know, I've long asked,
+[00:15:47] you've got an iPad with iPad OS.
+[00:15:49] - Love it. - You've got Mac, Mac OS.
+[00:15:51] - Love it, yeah.
+[00:15:52] - Why not?
+[00:15:53] Why not think about bringing these two things?
+[00:15:56] - Both are super popular and both doing great.
+[00:15:58] - Never gonna bring 'em together.
+[00:16:00] - They're great.
+[00:16:01] I mean, I think I love 'em both.
+[00:16:03] I think everyone, if they can should own both.
+[00:16:07] And they are products that come from just different places.
+[00:16:13] Their center is different. They share a lot in common.
+[00:16:15] And I think we all love using them both in their distinct
+[00:16:18] and and overlapping ways.
+[00:16:20] But the Mac has always been optimized for keyboard
+[00:16:23] and track pad or mouse.
+[00:16:26] High precision, fine targets on the UI.
+[00:16:32] iPad, it's the ultimate touch device.
+[00:16:33] You're just holding computing in your hand.
+[00:16:36] It's wonderful to interact with directly.
+[00:16:40] But there are things about them as the iPad has grown,
+[00:16:42] larger screens, more powerful computationally,
+[00:16:45] where our customers have wanted to do more with iPad.
+[00:16:48] I think we've all found ourselves going from using it for,
+[00:16:52] you know, a lot of sort of consumption
+[00:16:53] and a little bit of productivity
+[00:16:55] into a lot more productivity.
+[00:16:57] And as we reached for the ways to do that
+[00:17:00] in a way that was true to iPad,
+[00:17:02] we found that with some of the idioms of the Mac,
+[00:17:05] they actually translated over pretty well.
+[00:17:07] And so we've wanted to be consistent where it made sense,
+[00:17:10] but really embrace what's unique about iPad at every step.
+[00:17:15] - So what you're saying is there's a chance
+[00:17:17] you're gonna bring these things.
+[00:17:18] - That is an interesting interpretation, Joanne.
+[00:17:21] Yeah, that's what I'm hearing.
+[00:17:23] - I still remember the slide behind Craig.
+[00:17:25] I can't remember what keynote it was,
+[00:17:26] but I think we put the word no in about as big.
+[00:17:29] - It was the biggest typeface we could find.
+[00:17:31] I'd like to take a moment to briefly address this question.
+[00:17:35] No! (audience laughing)
+[00:17:36] - So the answer is no. - That's correct.
+[00:17:38] - Do you have a Mac with a touchscreen in those buildings?
+[00:17:42] - I don't see one.
+[00:17:44] - A lot of the updates yesterday
+[00:17:47] were to what we might call
+[00:17:49] more traditional computing, right?
+[00:17:51] The track pad, the touch screen,
+[00:17:54] Liquid Glass being a different way
+[00:17:55] to interact with the touch screen.
+[00:17:57] - Yeah. - What are though
+[00:17:58] is the future of computing to Apple
+[00:18:00] when we look at AI integrated,
+[00:18:03] and the ability of voice,
+[00:18:04] and having computers do more for us-
+[00:18:07] - Yeah. - Versus us
+[00:18:08] doing the computing.
+[00:18:10] - Well, I mean, I think it is a multimodal future
+[00:18:14] if you wanna use the technical term.
+[00:18:16] I mean, we as as humans are very visual creatures.
+[00:18:21] We are defined by our desire
+[00:18:24] to manipulate things with our hands.
+[00:18:27] We also have the capacity for language and speech.
+[00:18:30] And so, you're going to want to use
+[00:18:32] all of those capacities at once.
+[00:18:35] Sometimes you're going to want
+[00:18:37] to speak to get something done.
+[00:18:38] Sometimes you're gonna wanna reach out, grab the wheel,
+[00:18:41] touch it, manipulate it.
+[00:18:43] We see the ultimate future is one
+[00:18:45] in which you're seeing and you're interacting,
+[00:18:47] and you're touching and you're speaking.
+[00:18:50] And the device is able to take direction from you,
+[00:18:51] but you are able to show it what you want.
+[00:18:53] You are able to get what you want directly.
+[00:18:56] Just as we interact with the natural world.
+[00:18:59] - What about other devices to do that?
+[00:19:01] You probably saw that Johnny Ive is linked up
+[00:19:03] with OpenAI to create some sort of future AI device.
+[00:19:08] - Yeah, I don't know what that is.
+[00:19:09] - I don't either. Yeah.
+[00:19:10] - Is this a space that Apple's looking at?
+[00:19:11] Is this a space that goes beyond
+[00:19:14] what you have in the current lineup of devices?
+[00:19:17] Something that is more personal,
+[00:19:18] maybe you wear it glasses.
+[00:19:21] - I think, I mean, I think we have
+[00:19:23] some extremely personal wearable devices.
+[00:19:25] If you want something that's aware
+[00:19:27] of your environment with audio,
+[00:19:30] I think you're wearing one right now on your wrist.
+[00:19:34] If you want something that you can capture
+[00:19:36] the environment with and see,
+[00:19:37] and also receive visual content,
+[00:19:39] you might just have one in your pocket right now.
+[00:19:43] Are there other form factors that can make sense to AI?
+[00:19:46] Sure, but pretty hard to beat something that's
+[00:19:51] with you all the time and glanceable.
+[00:19:53] Or, you know, provides a nice screen
+[00:19:55] that you can interact with.
+[00:19:57] So yeah, I don't know what they're working on.
+[00:19:59] - There's been a lot of other issues
+[00:20:01] in the air facing Apple.
+[00:20:02] One of the big ones is tariffs,
+[00:20:03] and the threat of tariffs increasing the prices
+[00:20:06] of Apple products.
+[00:20:08] Jos, I'll ask you,
+[00:20:09] are we gonna have a more expensive iPhone?
+[00:20:11] - Well, clearly, you can imagine
+[00:20:12] we monitor this every day.
+[00:20:14] But certainly nothing
+[00:20:16] to announce now is we're all seeing where things settle out.
+[00:20:18] And obviously, we're focused this week on all our great
+[00:20:21] announcements across all our platforms,
+[00:20:23] and including Apple Intelligence.
+[00:20:25] - And those software upgrades are free and untariffed.
+[00:20:27] - Yes, that's very true.
+[00:20:29] You heard that here first.
+[00:20:30] - But specifically on marketing.
+[00:20:31] And if you have to increase prices,
+[00:20:34] that must be a tall order
+[00:20:35] to figure out how to market a more expensive iPhone.
+[00:20:37] - I'm again, premature to say at this point,
+[00:20:40] certainly nothing to talk about.
+[00:20:41] - You don't have teams working on that.
+[00:20:43] - We monitor it, as you can imagine.
+[00:20:45] We'd be crazy not to, but nothing announce.
+[00:20:47] - Okay. You both combined,
+[00:20:51] I believe have almost like 70 years
+[00:20:54] of working at this company.
+[00:20:55] - How old are you, Jos?
+[00:20:56] - Oh, my God. (Craig laughing)
+[00:20:58] Did you really have to go how old we are, Joanna?
+[00:21:00] - Yeah. And. - Yes.
+[00:21:01] - I will tell you a breaking news.
+[00:21:02] I did my 39th anniversary at Apple yesterday.
+[00:21:04] - Wow. Yesterday. - Oh, yeah, yesterday.
+[00:21:06] Can you believe that? - [Joanna] Wow.
+[00:21:07] - Yeah. - We didn't even
+[00:21:09] get you a cake. - Well, a year away from 40.
+[00:21:10] I just want you to plan.
+[00:21:11] It was a little planning time to make sure.
+[00:21:12] - No, we got the Liquid Glass cake,
+[00:21:13] which by the way sounds like a little bit like a vodka.
+[00:21:15] (all laughing) - I think I'm in.
+[00:21:17] (all continue laughing)
+[00:21:18] - But, so, I'll ask the question again.
+[00:21:20] Between you both, you have, I believe,
+[00:21:22] around 60 years of experience at this company.
+[00:21:25] - [Craig & Greg] Yeah. - You've seen the company
+[00:21:26] go through highs, through lows.
+[00:21:29] Where do you think you are right now?
+[00:21:30] There's a lot of sentiment that Apple
+[00:21:32] is on its back foot here.
+[00:21:34] - Well, I think you're right
+[00:21:35] to bring up that perspective,
+[00:21:37] because I think when you have been
+[00:21:38] through different waves.
+[00:21:43] You're very accustomed to the ups and downs.
+[00:21:46] And I think we're feeling really good right now.
+[00:21:48] - Yeah, look, I hate to be naive,
+[00:21:51] but I remember Steve had come back.
+[00:21:52] And he told us, "Look, what we have to do
+[00:21:55] is create great products and tell people about 'em."
+[00:21:57] And if we do that, everything else will work out.
+[00:22:00] And it turns out that is kind of the case.
+[00:22:02] And we create great products,
+[00:22:04] and we think our products are exceptionally great right now,
+[00:22:06] and keep getting better.
+[00:22:08] We're out here talking about 'em,
+[00:22:10] telling people why that's the case,
+[00:22:12] and everything will work out.
+[00:22:13] Right now, the business is strong.
+[00:22:14] People are loving our iPhones.
+[00:22:16] The Mac has never been more popular than it is now.
+[00:22:19] iPad has been growing and it's extremely great.
+[00:22:22] You know, everything we're doing
+[00:22:24] is trying to make great products.
+[00:22:26] Everything you saw yesterday was again,
+[00:22:28] how we use technologies from design to AI,
+[00:22:31] to the other feature work we did
+[00:22:32] to make our products better.
+[00:22:34] And look, we're already coming from a place
+[00:22:36] that every single one of our hero products
+[00:22:38] is number one in customer satisfaction,
+[00:22:40] in its respective categories.
+[00:22:42] And we just wanna make it better.
+[00:22:43] Wanna keep making it better.
+[00:22:45] And that's what we do.
+[00:22:46] And again, I'll hang onto that naive theory
+[00:22:48] that if we build great products,
+[00:22:50] and tell people about 'em, everything else will work out.
+[00:22:52] - And yesterday was a really exciting day.
+[00:22:54] You know, we've been working on, for instance,
+[00:22:56] the new design and many of these capabilities.
+[00:22:58] And to get them out in front of an audience,
+[00:23:00] and see just how...
+[00:23:01] You could feel the energy.
+[00:23:03] You could feel the excitement about
+[00:23:04] how much people care about these platforms,
+[00:23:06] love these enhancements.
+[00:23:08] And so you feel that.
+[00:23:09] And then, in our case, we know what's coming.
+[00:23:12] We're also excited about the great products
+[00:23:13] we are building.
+[00:23:16] It feels good.
+[00:23:16] - I have to end on this.
+[00:23:18] - Okay. - "Slow Horses"
+[00:23:18] or "Severance"?
+[00:23:20] - Oh, my God. I love 'em both. - Yeah, they're fantastic.
+[00:23:22] - Love them both. And I truly love them both.
+[00:23:24] - Yes. - I would say (inhales deeply)
+[00:23:27] "Severance" number one.
+[00:23:28] - Yeah. - But "Slow Horses"
+[00:23:30] is up there. - Phenomenal.
+[00:23:31] - iPad or Mac? You have to choose.
+[00:23:33] - Oh!
+[00:23:35] - Well, see, like so many
+[00:23:36] of our customers. - For what?
+[00:23:37] - I choose both. - Oh.
+[00:23:39] - [Greg] You didn't say I couldn't choose both.
+[00:23:40] - Texting style, individual, text, or big paragraph?
+[00:23:44] - Oh, well, again, it depends if you're on your Mac or not
+[00:23:47] because you can always tell somebody's text you from the Mac
+[00:23:49] because it's text return.
+[00:23:52] Text return.
+[00:23:53] And they all come across separate versus on my phone.
+[00:23:55] I type them all as one-one.
+[00:23:56] - This rapid fire- - I'll admit.
+[00:23:57] - Is not working. - I'm big paragraph guy.
+[00:23:58] - Yeah. - All right, well,
+[00:23:59] this rapid fire is not working.
+[00:24:00] - [Craig] Oh, I'm sorry.
+[00:24:01] - Thank you, guys. (all laughing out loud)
+[00:24:03] Thank you guys for sitting down and talking.
+[00:24:05] - Well, thank you, Joanna. - Thank you, Joanna.
