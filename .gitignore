@@ -11,3 +11,6 @@ outputs/
 
 # Local media assets
 samples/*.mp4
+
+# Lockfiles not used
+yarn.lock
