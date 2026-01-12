@@ -41,9 +41,17 @@ export async function POST(
 
   const origin = new URL(request.url).origin;
   const workerUrl = new URL("/api/worker/run", origin);
-  void fetch(workerUrl, { method: "POST" }).catch((err) => {
+  let workerTrigger = "triggered";
+  try {
+    const workerRes = await fetch(workerUrl, { method: "POST" });
+    if (!workerRes.ok) {
+      workerTrigger = `failed:${workerRes.status}`;
+      console.error("Worker trigger failed", workerRes.status);
+    }
+  } catch (err) {
+    workerTrigger = "failed:exception";
     console.error("Failed to trigger worker", err);
-  });
+  }
 
-  return NextResponse.json({ jobs });
+  return NextResponse.json({ jobs, workerTrigger });
 }
