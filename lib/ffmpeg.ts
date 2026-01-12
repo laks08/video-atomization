@@ -72,7 +72,50 @@ function resolveFfmpegPath(): string {
     }
   }
 
-  // 4. Last resort: just "ffmpeg" (system path)
+  // 4. Debug: List files to find where it is
+  if (process.env.VERCEL) {
+    console.log("[ffmpeg] Debugging file system...");
+    try {
+      const { readdirSync, statSync } = require("node:fs");
+
+      // Helper to valid recursive search
+      const findFile = (dir: string, pattern: string, depth = 0): string | null => {
+        if (depth > 4) return null; // limit depth
+        try {
+          const files = readdirSync(dir);
+          for (const file of files) {
+            const fullPath = path.join(dir, file);
+            const stat = statSync(fullPath);
+            if (stat.isDirectory()) {
+              if (file === 'node_modules' || file === '.next') {
+                const res = findFile(fullPath, pattern, depth + 1);
+                if (res) return res;
+              }
+            } else if (file === pattern) {
+              return fullPath;
+            }
+          }
+        } catch (e) { /* ignore access errors */ }
+        return null;
+      };
+
+      console.log(`[ffmpeg] CWD: ${process.cwd()}`);
+
+      // Look for 'ffmpeg' binary starting from root
+      const found = findFile(process.cwd(), 'ffmpeg');
+      if (found) {
+        console.log(`[ffmpeg] FOUND BINARY AT: ${found}`);
+        return found;
+      } else {
+        console.log("[ffmpeg] COULD NOT FIND BINARY IN CWD SEARCH");
+      }
+
+    } catch (e) {
+      console.error("[ffmpeg] Error during debug search:", e);
+    }
+  }
+
+  // 5. Last resort: just "ffmpeg" (system path)
   console.warn('[ffmpeg] No binary found in expected locations. Falling back to "ffmpeg"');
   return "ffmpeg";
 }
