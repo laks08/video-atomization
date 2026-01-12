@@ -1,4 +1,5 @@
 import { spawn } from "node:child_process";
+import ffmpegStatic from "ffmpeg-static";
 
 export function msToTimestamp(ms: number): string {
   const totalMs = Math.max(0, Math.floor(ms));
@@ -41,7 +42,9 @@ export async function extractClip(
   const start = msToTimestamp(startMs);
   const end = msToTimestamp(endMs);
 
-  await runCmd("ffmpeg", [
+  const ffmpegPath = ffmpegStatic || "ffmpeg";
+
+  await runCmd(ffmpegPath, [
     "-y",
     "-ss",
     start,
@@ -67,7 +70,9 @@ export async function makeVertical(
   inputPath: string,
   outPath: string
 ): Promise<void> {
-  await runCmd("ffmpeg", [
+  const ffmpegPath = ffmpegStatic || "ffmpeg";
+
+  await runCmd(ffmpegPath, [
     "-y",
     "-i",
     inputPath,
