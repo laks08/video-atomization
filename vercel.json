@@ -1,5 +1,5 @@
 {
-  "installCommand": "pnpm install --ignore-scripts=false && cd node_modules/.pnpm/ffmpeg-static@*/node_modules/ffmpeg-static && node install.js",
+  "installCommand": "bash scripts/install-ffmpeg.sh",
   "functions": {
     "app/api/**": {
       "includeFiles": "node_modules/**/**/ffmpeg-static/ffmpeg",
