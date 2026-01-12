@@ -1,4 +1,6 @@
 import prisma from "../lib/db";
+
+export const dynamic = "force-dynamic";
 import UploadForm from "./components/UploadForm";
 import ProcessForm from "./components/ProcessForm";
 
