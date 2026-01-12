@@ -1,3 +1,9 @@
 {
-  "installCommand": "pnpm install --ignore-scripts=false"
+  "installCommand": "pnpm install --ignore-scripts=false && cd node_modules/.pnpm/ffmpeg-static@*/node_modules/ffmpeg-static && node install.js",
+  "functions": {
+    "api/worker/run": {
+      "includeFiles": "node_modules/**/**/ffmpeg-static/ffmpeg",
+      "maxDuration": 60
+    }
+  }
 }

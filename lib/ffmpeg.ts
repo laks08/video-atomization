@@ -1,4 +1,6 @@
 import { spawn } from "node:child_process";
+import { constants } from "node:fs";
+import { access, chmod } from "node:fs/promises";
 import ffmpegStatic from "ffmpeg-static";
 
 export function msToTimestamp(ms: number): string {
@@ -33,6 +35,48 @@ export function runCmd(cmd: string, args: string[]): Promise<void> {
   });
 }
 
+function resolveFfmpegPath(): string {
+  // Allow manual override via environment variable
+  if (process.env.FFMPEG_PATH) {
+    console.log(`[ffmpeg] Using FFMPEG_PATH: ${process.env.FFMPEG_PATH}`);
+    return process.env.FFMPEG_PATH;
+  }
+
+  // In Vercel, ffmpeg-static should resolve to the bundled binary
+  if (ffmpegStatic) {
+    console.log(`[ffmpeg] Using ffmpeg-static path: ${ffmpegStatic}`);
+    return ffmpegStatic;
+  }
+
+  // Fallback to system ffmpeg (likely won't work in Vercel)
+  console.warn('[ffmpeg] Falling back to system ffmpeg - this may fail in serverless');
+  return "ffmpeg";
+}
+
+async function ensureExecutable(filePath: string) {
+  try {
+    await access(filePath);
+    console.log(`[ffmpeg] Binary found at: ${filePath}`);
+  } catch (err) {
+    console.error(`[ffmpeg] Binary not found at: ${filePath}`);
+    throw new Error(`FFmpeg binary not accessible at ${filePath}`);
+  }
+
+  try {
+    await access(filePath, constants.X_OK);
+    console.log(`[ffmpeg] Binary is executable`);
+  } catch {
+    console.log(`[ffmpeg] Making binary executable: ${filePath}`);
+    try {
+      await chmod(filePath, 0o755);
+      console.log(`[ffmpeg] Successfully made binary executable`);
+    } catch (chmodErr) {
+      console.error(`[ffmpeg] Failed to chmod:`, chmodErr);
+      // Don't throw - the binary might still work
+    }
+  }
+}
+
 export async function extractClip(
   inputPath: string,
   startMs: number,
@@ -42,7 +86,8 @@ export async function extractClip(
   const start = msToTimestamp(startMs);
   const end = msToTimestamp(endMs);
 
-  const ffmpegPath = ffmpegStatic || "ffmpeg";
+  const ffmpegPath = resolveFfmpegPath();
+  await ensureExecutable(ffmpegPath);
 
   await runCmd(ffmpegPath, [
     "-y",
@@ -70,7 +115,8 @@ export async function makeVertical(
   inputPath: string,
   outPath: string
 ): Promise<void> {
-  const ffmpegPath = ffmpegStatic || "ffmpeg";
+  const ffmpegPath = resolveFfmpegPath();
+  await ensureExecutable(ffmpegPath);
 
   await runCmd(ffmpegPath, [
     "-y",
