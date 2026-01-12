@@ -43,7 +43,13 @@ export async function POST(
   const workerUrl = new URL("/api/worker/run", origin);
   let workerTrigger = "triggered";
   try {
-    const workerRes = await fetch(workerUrl, { method: "POST" });
+    const workerRes = await fetch(workerUrl, {
+      method: "POST",
+      headers: {
+        cookie: request.headers.get("cookie") || "",
+        authorization: request.headers.get("authorization") || "",
+      },
+    });
     if (!workerRes.ok) {
       workerTrigger = `failed:${workerRes.status}`;
       console.error("Worker trigger failed", workerRes.status);
