@@ -1,7 +1,14 @@
-import { access, mkdir } from "node:fs/promises";
+import { access, mkdtemp, rm } from "node:fs/promises";
 import path from "node:path";
+import os from "node:os";
 import prisma from "./db";
 import { extractClip, makeVertical } from "./ffmpeg";
+import {
+  cleanupTempFile,
+  downloadToTempFile,
+  isRemoteUrl,
+  uploadFileToBlob,
+} from "./blob";
 
 export type RenderResult = {
   hadFailures: boolean;
@@ -18,37 +25,42 @@ export async function renderClips(videoId: string): Promise<RenderResult> {
     throw new Error(`Video not found: ${videoId}`);
   }
 
-  const inputPath = path.resolve(video.source_path);
-  try {
-    await access(inputPath);
-  } catch {
-    throw new Error(`Input file not found: ${inputPath}`);
+  let inputPath = video.source_path;
+  if (isRemoteUrl(video.source_path)) {
+    inputPath = await downloadToTempFile(
+      video.source_path,
+      `${video.id}-source.mp4`
+    );
+  } else {
+    inputPath = path.resolve(video.source_path);
+    try {
+      await access(inputPath);
+    } catch {
+      throw new Error(`Input file not found: ${inputPath}`);
+    }
   }
 
   if (video.moments.length === 0) {
     return { hadFailures: false, renderedCount: 0 };
   }
 
-  const outputDirRel = path.join("./outputs", videoId);
-  const outputDir = path.resolve(outputDirRel);
-  await mkdir(outputDir, { recursive: true });
-
   await prisma.clipAsset.deleteMany({ where: { video_id: videoId } });
 
   let hadFailures = false;
   let renderedCount = 0;
+  const tempDir = await mkdtemp(
+    path.join(os.tmpdir(), `video-atomization-${videoId}-`)
+  );
 
   for (const moment of video.moments) {
-    const horizontalRel = path.join(
-      outputDirRel,
+    const horizontalPath = path.join(
+      tempDir,
       `${moment.rank}_horizontal.mp4`
     );
-    const verticalRel = path.join(
-      outputDirRel,
+    const verticalPath = path.join(
+      tempDir,
       `${moment.rank}_vertical.mp4`
     );
-    const horizontalPath = path.resolve(horizontalRel);
-    const verticalPath = path.resolve(verticalRel);
 
     try {
       await extractClip(
@@ -58,12 +70,17 @@ export async function renderClips(videoId: string): Promise<RenderResult> {
         horizontalPath
       );
 
+      const horizontalUrl = await uploadFileToBlob(
+        horizontalPath,
+        `clips/${video.id}/${moment.rank}_horizontal.mp4`
+      );
+
       await prisma.clipAsset.create({
         data: {
           video_id: video.id,
           moment_id: moment.id,
           orientation: "horizontal",
-          file_path: horizontalRel,
+          file_path: horizontalUrl,
           start_ms: moment.start_ms,
           end_ms: moment.end_ms,
         },
@@ -80,12 +97,17 @@ export async function renderClips(videoId: string): Promise<RenderResult> {
     try {
       await makeVertical(horizontalPath, verticalPath);
 
+      const verticalUrl = await uploadFileToBlob(
+        verticalPath,
+        `clips/${video.id}/${moment.rank}_vertical.mp4`
+      );
+
       await prisma.clipAsset.create({
         data: {
           video_id: video.id,
           moment_id: moment.id,
           orientation: "vertical",
-          file_path: verticalRel,
+          file_path: verticalUrl,
           start_ms: moment.start_ms,
           end_ms: moment.end_ms,
         },
@@ -100,6 +122,11 @@ export async function renderClips(videoId: string): Promise<RenderResult> {
       );
     }
   }
+
+  if (isRemoteUrl(video.source_path)) {
+    await cleanupTempFile(inputPath);
+  }
+  await rm(tempDir, { recursive: true, force: true });
 
   return { hadFailures, renderedCount };
 }

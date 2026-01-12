@@ -65,13 +65,18 @@ async function handleJob(job: Awaited<ReturnType<typeof claimNextJob>>) {
 
   try {
     if (job.type === JobType.INGEST_TRANSCRIPT) {
-      const payload = job.payload as { transcriptPath?: string } | null;
-      const transcriptPath = payload?.transcriptPath;
-      if (!transcriptPath) {
-        throw new Error("INGEST_TRANSCRIPT missing payload.transcriptPath");
+      const payload = job.payload as
+        | { transcriptPath?: string; transcriptUrl?: string }
+        | null;
+      const transcriptSource =
+        payload?.transcriptUrl ?? payload?.transcriptPath;
+      if (!transcriptSource) {
+        throw new Error(
+          "INGEST_TRANSCRIPT missing payload.transcriptPath or transcriptUrl"
+        );
       }
 
-      await ingestTranscript(job.video_id, transcriptPath);
+      await ingestTranscript(job.video_id, transcriptSource);
     } else if (job.type === JobType.DETECT_MOMENTS) {
       await detectMoments(job.video_id);
     } else if (job.type === JobType.RENDER_CLIPS) {
