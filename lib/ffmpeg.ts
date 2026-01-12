@@ -35,30 +35,57 @@ export function runCmd(cmd: string, args: string[]): Promise<void> {
   });
 }
 
+import path from "node:path";
+import { existsSync } from "node:fs";
+
 function resolveFfmpegPath(): string {
-  // Allow manual override via environment variable
+  // 1. Manually check environment variable
   if (process.env.FFMPEG_PATH) {
     console.log(`[ffmpeg] Using FFMPEG_PATH: ${process.env.FFMPEG_PATH}`);
     return process.env.FFMPEG_PATH;
   }
 
-  // In Vercel, ffmpeg-static should resolve to the bundled binary
-  if (ffmpegStatic) {
-    console.log(`[ffmpeg] Using ffmpeg-static path: ${ffmpegStatic}`);
-    return ffmpegStatic;
+  // 2. Check the path reported by ffmpeg-static
+  let candidatePath = ffmpegStatic;
+  if (candidatePath && existsSync(candidatePath)) {
+    console.log(`[ffmpeg] Found at default path: ${candidatePath}`);
+    return candidatePath;
+  }
+  console.log(`[ffmpeg] Default path not found: ${candidatePath}`);
+
+  // 3. Fallback: Search in common node_modules locations relative to CWD
+  // In Vercel, process.cwd() is usually /var/task
+  const cwd = process.cwd();
+  const searchPaths = [
+    path.join(cwd, "node_modules", "ffmpeg-static", "ffmpeg"),
+    path.join(cwd, "node_modules", "ffmpeg-static", "b6.0", "ffmpeg"), // some versions use subdirs
+    // Handle pnpm structure
+    ...[
+      "5.3.0", "5.2.0", "5.1.0"
+    ].map(v => path.join(cwd, "node_modules", ".pnpm", `ffmpeg-static@${v}`, "node_modules", "ffmpeg-static", "ffmpeg"))
+  ];
+
+  for (const p of searchPaths) {
+    if (existsSync(p)) {
+      console.log(`[ffmpeg] Found binary at fallback location: ${p}`);
+      return p;
+    }
   }
 
-  // Fallback to system ffmpeg (likely won't work in Vercel)
-  console.warn('[ffmpeg] Falling back to system ffmpeg - this may fail in serverless');
+  // 4. Last resort: just "ffmpeg" (system path)
+  console.warn('[ffmpeg] No binary found in expected locations. Falling back to "ffmpeg"');
   return "ffmpeg";
 }
 
 async function ensureExecutable(filePath: string) {
+  // If it's just "ffmpeg", we can't chmod it, so skip
+  if (filePath === "ffmpeg") return;
+
   try {
     await access(filePath);
-    console.log(`[ffmpeg] Binary found at: ${filePath}`);
+    console.log(`[ffmpeg] Binary confirmed at: ${filePath}`);
   } catch (err) {
-    console.error(`[ffmpeg] Binary not found at: ${filePath}`);
+    console.error(`[ffmpeg] Binary not found during verify at: ${filePath}`);
     throw new Error(`FFmpeg binary not accessible at ${filePath}`);
   }
 
