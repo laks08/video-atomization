@@ -17,3 +17,4 @@ samples/*.mp4
 yarn.lock
 .vercel
 .env*.local
+tsconfig.json
