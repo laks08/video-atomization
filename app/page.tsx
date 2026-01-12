@@ -1,9 +1,8 @@
 import prisma from "../lib/db";
-import UploadForm from "./components/UploadForm";
-import ProcessForm from "./components/ProcessForm";
-import WorkerRun from "./components/WorkerRun";
 
 export const dynamic = "force-dynamic";
+import UploadForm from "./components/UploadForm";
+import ProcessForm from "./components/ProcessForm";
 
 export default async function Home() {
   const videos = await prisma.video.findMany({
@@ -18,7 +17,6 @@ export default async function Home() {
     <main style={{ fontFamily: "sans-serif", padding: 24 }}>
       <h1>Video Atomization</h1>
       <UploadForm />
-      <WorkerRun />
       {videos.length === 0 ? (
         <p>No videos yet.</p>
       ) : (

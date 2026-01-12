@@ -71,7 +71,6 @@ export default function ProcessForm({ videoId }: Props) {
 
     setStatus("Enqueuing...");
     setIsEnqueuing(true);
-
     try {
       const res = await fetch(`/api/videos/${videoId}/process`, {
         method: "POST",
@@ -79,16 +78,12 @@ export default function ProcessForm({ videoId }: Props) {
         body: JSON.stringify({ transcriptUrl }),
       });
 
-      const body = await res.json().catch(() => ({}));
       if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
         throw new Error(body.error || "Failed to enqueue");
       }
 
-      if (body.workerTrigger) {
-        setStatus(`Jobs enqueued (${body.workerTrigger}).`);
-      } else {
-        setStatus("Jobs enqueued.");
-      }
+      setStatus("Jobs enqueued.");
       router.refresh();
     } catch (err) {
       setStatus(err instanceof Error ? err.message : "Failed to enqueue");

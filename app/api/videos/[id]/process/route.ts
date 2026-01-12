@@ -39,25 +39,11 @@ export async function POST(
   jobs.push(await enqueueJob(videoId, JobType.DETECT_MOMENTS));
   jobs.push(await enqueueJob(videoId, JobType.RENDER_CLIPS));
 
-  const origin = new URL(request.url).origin;
-  const workerUrl = new URL("/api/worker/run", origin);
-  let workerTrigger = "triggered";
-  try {
-    const workerRes = await fetch(workerUrl, {
-      method: "POST",
-      headers: {
-        cookie: request.headers.get("cookie") || "",
-        authorization: request.headers.get("authorization") || "",
-      },
-    });
-    if (!workerRes.ok) {
-      workerTrigger = `failed:${workerRes.status}`;
-      console.error("Worker trigger failed", workerRes.status);
-    }
-  } catch (err) {
-    workerTrigger = "failed:exception";
-    console.error("Failed to trigger worker", err);
+  const origin = request.headers.get("origin");
+  if (origin) {
+    const workerUrl = new URL("/api/worker/run", origin);
+    void fetch(workerUrl, { method: "POST" }).catch(() => undefined);
   }
 
-  return NextResponse.json({ jobs, workerTrigger });
+  return NextResponse.json({ jobs });
 }
