@@ -39,11 +39,11 @@ export async function POST(
   jobs.push(await enqueueJob(videoId, JobType.DETECT_MOMENTS));
   jobs.push(await enqueueJob(videoId, JobType.RENDER_CLIPS));
 
-  const origin = request.headers.get("origin");
-  if (origin) {
-    const workerUrl = new URL("/api/worker/run", origin);
-    void fetch(workerUrl, { method: "POST" }).catch(() => undefined);
-  }
+  const origin = new URL(request.url).origin;
+  const workerUrl = new URL("/api/worker/run", origin);
+  void fetch(workerUrl, { method: "POST" }).catch((err) => {
+    console.error("Failed to trigger worker", err);
+  });
 
   return NextResponse.json({ jobs });
 }
